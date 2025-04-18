@@ -1,23 +1,32 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Задайте свой вопрос и выберите советчика(Ангел/Дьявол):");
+        String question = new Scanner(System.in).nextLine();
+
         ActualQuestion actualQuestion = new ActualQuestion();
-        actualQuestion.askQuestion("Ты пойдёшь в это воскресенье храм?");
+        actualQuestion.askQuestion(question);
 
         AngelListener angelListener = new AngelListener();
 
         DevilListener devilListener = new DevilListener();
 
-        getAnswerFromAngelOrDevil(actualQuestion, angelListener, devilListener, ChoiceAngelOrDevil.DEVIL); //дьявол или ангел
+        System.out.println("Напишите советчика - ANGEL/DEVIL:");
+        ChoiceAngelOrDevil choiceUser = ChoiceAngelOrDevil.valueOf(new Scanner(System.in).nextLine());
+
+        getAnswerFromAngelOrDevil(actualQuestion, angelListener, devilListener, choiceUser);
     }
 
     public static void getAnswerFromAngelOrDevil(
             ActualQuestion actualQuestion,
             AngelListener angelListener,
             DevilListener devilListener,
-            ChoiceAngelOrDevil nameListener) {
-        if (nameListener.equals(ChoiceAngelOrDevil.ANGEL)) {
+            ChoiceAngelOrDevil choiceUser
+    ) {
+        if (choiceUser.equals(ChoiceAngelOrDevil.ANGEL)) {
             angelListener.actionPerformed(actualQuestion);
-        } else if (nameListener.equals(ChoiceAngelOrDevil.DEVIL)) {
+        } else if (choiceUser.equals(ChoiceAngelOrDevil.DEVIL)) {
             devilListener.actionPerformed(actualQuestion);
         }
     }
