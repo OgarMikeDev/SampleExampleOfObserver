@@ -4,9 +4,21 @@ public class Main {
         actualQuestion.askQuestion("Ты пойдёшь в это воскресенье храм?");
 
         AngelListener angelListener = new AngelListener();
-        angelListener.actionPerformed(actualQuestion);
 
         DevilListener devilListener = new DevilListener();
-        devilListener.actionPerformed(actualQuestion);
+
+        getAnswerFromAngelOrDevil(actualQuestion, angelListener, devilListener, ChoiceAngelOrDevil.DEVIL); //дьявол или ангел
+    }
+
+    public static void getAnswerFromAngelOrDevil(
+            ActualQuestion actualQuestion,
+            AngelListener angelListener,
+            DevilListener devilListener,
+            ChoiceAngelOrDevil nameListener) {
+        if (nameListener.equals(ChoiceAngelOrDevil.ANGEL)) {
+            angelListener.actionPerformed(actualQuestion);
+        } else if (nameListener.equals(ChoiceAngelOrDevil.DEVIL)) {
+            devilListener.actionPerformed(actualQuestion);
+        }
     }
 }
